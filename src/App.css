@@ -1,0 +1,11 @@
+.App {
+  width: 500px;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: start;
+}
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

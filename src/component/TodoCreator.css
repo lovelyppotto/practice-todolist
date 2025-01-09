@@ -1,0 +1,16 @@
+.input-box {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    justify-content:space-between;
+}
+
+input {
+    padding: 15px;
+    width: 75%;
+}
+
+button {
+    width: 17%;
+    padding: 15px 0px;
+}
