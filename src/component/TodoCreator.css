@@ -6,11 +6,18 @@
 }
 
 input {
-    padding: 15px;
+    padding: 17px;
     width: 75%;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
-button {
+.create-button {
     width: 17%;
     padding: 15px 0px;
+    background-color: rgba(23, 139, 81, 0.993);
+    border: 3px solid rgba(23, 139, 81, 0.993);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
 }

@@ -4,7 +4,8 @@ const Calendar = () => {
     return(
         <div>
             <h2>오늘은 🗓️</h2>
-            <h1>Mon Jan 02 2023</h1>
+            {/* 오늘 날짜 표시 */}
+            <h1 style={{color: "gray"}}>{new Date().toDateString()}</h1>
         </div>
     );
 }

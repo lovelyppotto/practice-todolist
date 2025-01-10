@@ -7,7 +7,7 @@ const TodoCreator = () => {
             <h3>새로운 Todo 작성하기 ✏️</h3>
             <div className="input-box">
                 <input placeholder="새로운 Todo..."/>
-                <button>추가</button>
+                <button className="create-button">추가</button>
             </div>
         </div>
     );
