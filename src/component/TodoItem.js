@@ -10,7 +10,7 @@ const TodoItem = () => {
                     <span>React 공부하기</span>
                 </div>
                 <div className="right">
-                    <span className="date">2024. 1. 2.</span>
+                    <span className="date">{new Date().toLocaleDateString()}.</span>
                     <button className="delete">삭제</button>
                 </div>
             </div>
