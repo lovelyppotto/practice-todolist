@@ -41,7 +41,7 @@ function App() {
       id: idRef.current,
       content,
       isDone: false,
-      createDate: new Date().getTime(),
+      createdDate: new Date().getTime(),
     }
     // 배열의 스프레드 연산자 활용
     // State 변수 todo 업데이트
@@ -59,7 +59,7 @@ function App() {
         <TodoCreator onCreate={onCreate} />
       </section>
       <section>
-        <TodoList />
+        <TodoList todo={todo}/>
       </section>
     </div>
   );
