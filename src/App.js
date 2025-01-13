@@ -50,6 +50,31 @@ function App() {
     idRef.current += 1
   }
 
+  // 체크박스에 틱 발생시 호출하는 함수
+  // 틱이 발생한 아이템의 id를 매개변수로 저장
+  const onUpdate = (targetId) => {
+    setTodo(
+      todo.map(
+        (it) => {
+          // 
+          if (it.id === targetId) {
+            return {
+              ...it,
+              isDone: !it.isDone,
+            }
+          }
+            else {return it}
+        }
+      )
+    )
+  }
+
+  // 아이템 삭제 함수
+  // 해당 id 요소를 뺀 새 배열로 todo를 업데이트한다
+  const onDelete = (targetId) => {
+    setTodo(todo.filter((it) => it.id !== targetId))
+  }
+
   return (
     <div className="App">
       <section>
@@ -59,7 +84,7 @@ function App() {
         <TodoCreator onCreate={onCreate} />
       </section>
       <section>
-        <TodoList todo={todo}/>
+        <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
       </section>
     </div>
   );

@@ -2,7 +2,7 @@ import { useState } from "react"
 import TodoItem from "./TodoItem";
 import "./TodoList.css"
 
-const TodoList = ({todo}) => {
+const TodoList = ({todo, onUpdate, onDelete}) => {
     const [search, setSearch] = useState("")
     const onChangeSearch = (e) => {
         setSearch(e.target.value)
@@ -12,7 +12,8 @@ const TodoList = ({todo}) => {
         // 입력값 있을 경우 해당 검색어 포함하는 컨텐츠만 표시
         return search === ""
             ? todo
-            : todo.filter((it) => it.content.includes(search))
+            : todo.filter((it) => 
+                it.content.toLowerCase().includes(search))
     }
     return(
         <div>
@@ -30,7 +31,12 @@ const TodoList = ({todo}) => {
                 */}
                 {getSearchResult().map((it) => (
                     // key를 각 요소의 id로 지정
-                    <TodoItem key={it.id} {...it}/>
+                    <TodoItem 
+                        key={it.id} 
+                        {...it} 
+                        onUpdate={onUpdate}
+                        onDelete={onDelete}
+                    />
                 ))}
             </div>
         </div>
