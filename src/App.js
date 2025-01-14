@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useReducer, useRef } from "react";
 
 import './App.css';
 import Calendar from './component/Calendar';
@@ -26,53 +26,71 @@ const mockTodo = [
   },
 ]
 
+function reducer( state, action ) {
+  switch (action.type) {
+    case "CREATE": {
+      return [action.newItem, ...state]
+    }
+    case "UPDATE": {
+      // map 메서드로 순회하며 매개변수 state에 저장된 아이템 배열에서
+      return state.map((it) => 
+        // 타겟 id와 id 비교
+        it.id === action.targetId
+        // 새 배열 반환
+        ? {
+          ...it,
+          isDone: !it.isDone,
+        }
+        :it
+      )
+    }
+    case "DELETE": {
+      // 필터링한 결과를 배열로 반환
+      return state.filter((it) => it.id !== action.targetId)
+    }
+    default : return state
+  }
+}
+
 function App() {
-  const [ todo, setTodo ] = useState(mockTodo)
+  const [ todo, dispatch ] = useReducer(reducer, mockTodo)
 
   // id 값을 자동으로 관리할 Ref 객체
   const idRef = useRef(3)
 
   // todo 추가버튼 누를 시 실행될 핸들러 함수
-  // 데이터를 받아 매개변수 content에 저장하고
-  // 해당 데이터 기반으로 객체 newItem에 저장
   const onCreate = (content) => {
-    const newItem = {
-      // 아이템이 처음 추가된다면 id는 3이 된다
-      id: idRef.current,
-      content,
-      isDone: false,
-      createdDate: new Date().getTime(),
-    }
-    // 배열의 스프레드 연산자 활용
-    // State 변수 todo 업데이트
-    setTodo([newItem, ...todo])
-    // 아이템 추가될 때마다 idRef 객체의 현재 값을 1 
+    // 새 할일 생성 위해 dispatch 호출
+    dispatch({
+      type: "CREATE",
+      // 추가할 할일
+      newItem: {
+        id: idRef.current,
+        content,
+        isDone: false,
+        createdDate: new Date().getTime(),
+      }
+    })
     idRef.current += 1
   }
 
   // 체크박스에 틱 발생시 호출하는 함수
   // 틱이 발생한 아이템의 id를 매개변수로 저장
   const onUpdate = (targetId) => {
-    setTodo(
-      todo.map(
-        (it) => {
-          // 
-          if (it.id === targetId) {
-            return {
-              ...it,
-              isDone: !it.isDone,
-            }
-          }
-            else {return it}
-        }
-      )
-    )
+    dispatch({
+      type: "UPDATE",
+      targetId,
+
+    })
   }
 
   // 아이템 삭제 함수
   // 해당 id 요소를 뺀 새 배열로 todo를 업데이트한다
   const onDelete = (targetId) => {
-    setTodo(todo.filter((it) => it.id !== targetId))
+    dispatch({
+      type: "DELETE",
+      targetId,
+    })
   }
 
   return (
